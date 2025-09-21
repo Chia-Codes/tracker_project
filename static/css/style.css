@@ -19,8 +19,8 @@
 
 /* Global Styles */
 body {
-  background: linear-gradient(to bottom, var(--pastel-blue), #D4E9F7);
-  font-family: var(--primary-font);
+  background: linear-gradient(to bottom, var(--light-blue), #064670);
+  font-family: 'Lato', sans-serif;
   color: var(--navy);
   margin: 0;
   padding: 0;
@@ -56,4 +56,30 @@ footer {
   padding: 1rem 0;
   box-shadow: inset 0 1px 3px var(--shadow);
 }
+
+/* Cards */
+.card {
+  background: linear-gradient(to top, var(--light-blue), #b1d0e4);
+  color: var(--navy);
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px var(--shadow);
+  transition: transform 0.2s ease-in-out;
+  height: 90%;
+}
+
+.card:hover {
+  transform: scale(1.01);
+}
+
+.card-title {
+  font-family: var(--primary-font);
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    text-align: center;
+    text-transform: capitalize;
+}
+
 
