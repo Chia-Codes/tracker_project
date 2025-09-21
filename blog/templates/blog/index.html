@@ -1,10 +1,7 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
 <div class="container-fluid">
   <div class="row">
-
     <!-- Cycle Insights / Personalized Cards -->
     <div class="col-12 mt-3">
       <div class="row">
@@ -18,7 +15,7 @@
                 </div>
               </div>
 
-              <a href="{% url 'insight_detail' insight.slug %}" class="post-link">
+              <a href="{% url 'post_detail' slug=insight.slug %}" class="post-link">
                 <h2 class="card-title">{{ insight.title }}</h2>
               </a>
 
@@ -32,12 +29,8 @@
 
         {% if forloop.counter|divisibleby:3 %}
       </div>
-      <div class="row">
-        {% endif %}
-        {% endfor %}
-      </div>
+      <div class="row">{% endif %} {% endfor %}</div>
     </div>
-
   </div>
 
   {% if is_paginated %}
@@ -45,18 +38,20 @@
     <ul class="pagination justify-content-center">
       {% if page_obj.has_previous %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">« PREV</a>
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}"
+          >« PREV</a
+        >
       </li>
-      {% endif %}
-      {% if page_obj.has_next %}
+      {% endif %} {% if page_obj.has_next %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ page_obj.next_page_number }}">NEXT »</a>
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}"
+          >NEXT »</a
+        >
       </li>
       {% endif %}
     </ul>
   </nav>
   {% endif %}
-
 </div>
 
 {% endblock %}

@@ -17,3 +17,43 @@
   --shadow: rgba(0, 0, 0, 0.05);
 }
 
+/* Global Styles */
+body {
+  background: linear-gradient(to bottom, var(--pastel-blue), #D4E9F7);
+  font-family: var(--primary-font);
+  color: var(--navy);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Header Branding */
+.navbar-brand span.brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.navbar {
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+/* Navigation */
+.nav-link {
+  color: var(--navy);
+  font-weight: 500;
+}
+
+.nav-link.active,
+.nav-link:hover {
+  color: var(--teal);
+  border-bottom: 2px solid var(--teal);
+}
+
+/* Footer */
+footer {
+  background-color: var(--light-blue);
+  color: var(--navy);
+  padding: 1rem 0;
+  box-shadow: inset 0 1px 3px var(--shadow);
+}
+
