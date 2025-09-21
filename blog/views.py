@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.views import generic
+from .models import Post
 
 # Create your views here.
-
-def my_blog(request):
-    return HttpResponse("Hello, blog!")
+class Dashboard(generic.ListView):
+    queryset = Post.objects.filter(status=1)
+    template_name = "dashbord.html"
