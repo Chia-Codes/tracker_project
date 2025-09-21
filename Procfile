@@ -1,1 +1,1 @@
-web:gunicorn codestar.wsgi
+web:gunicorn trackher.wsgi:application --log-file -
