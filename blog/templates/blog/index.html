@@ -5,26 +5,26 @@
 <div class="container-fluid">
   <div class="row">
 
-    <!-- Blog Insights  -->
+    <!-- Cycle Insights / Personalized Cards -->
     <div class="col-12 mt-3">
       <div class="row">
-        {% for item in item_list %}
+        {% for insight in insight_list %}
         <div class="col-md-4">
           <div class="card mb-4">
             <div class="card-body">
               <div class="image-container">
                 <div class="image-flash">
-                  <p class="author">Contributed by: {{ item.author }}</p>
+                  <p class="author">By {{ insight.author }}</p>
                 </div>
               </div>
 
-              <a href="{% url 'item_detail' item.slug %}" class="post-link">
-                <h2 class="card-title">{{ item.title }}</h2>
+              <a href="{% url 'insight_detail' insight.slug %}" class="post-link">
+                <h2 class="card-title">{{ insight.title }}</h2>
               </a>
 
               <hr />
               <p class="card-text text-muted h6">
-                {{ item.created_on|date:"F j, Y" }}
+                {{ insight.created_on|date:"F j, Y" }}
               </p>
             </div>
           </div>
