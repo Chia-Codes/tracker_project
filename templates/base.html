@@ -4,8 +4,11 @@
 <html class="h-100" lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>Trackher Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Google Fonts CSS -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -19,7 +22,51 @@
 
 </head>
 
+<body class="d-flex flex-column h-100">
+    
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <span class="brand">P<span class="text-primary">C</span>O<span class="text-muted">S</span></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == home_url %}active{% endif %}" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'tracker' %}">Tracker</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'journal' %}">Journal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'resources' %}">Resources</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'community' %}">Community</a>
+          </li>
+        </ul>
+        <span class="navbar-text text-muted">
+          Empower your cycle, your way.
+        </span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-shrink-0">
+    {% block content %}
+    <!-- Page content will be injected here -->
+    {% endblock content %}
+  </main>
 
 
 
