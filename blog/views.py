@@ -3,6 +3,9 @@ from django.views import generic
 from .models import Post
 
 # Create your views here.
-class Dashboard(generic.ListView):
-    queryset = Post.objects.filter(status=1)
-    template_name = "dashbord.html"
+
+
+class Post(generic.ListView):
+    queryset = Post.objects.filter(status=1).order_by("-created_on")
+    template_name = "blog/dashboard.html"
+
