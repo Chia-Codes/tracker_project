@@ -1,0 +1,84 @@
+/* Google fonts import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Macondo&display=swap');
+
+
+/* CSS Variables */
+:root {
+  --primary-font: 'Multiplex', sans-serif;
+  --secondary-font: "Macondo", cursive;
+  --pastel-blue: #E6F0FA;
+  --light-blue: #F3F9FD;
+  --teal: #A1D9CE;
+  --navy: #2E3A59;
+  --soft-coral: #F28C8C;
+  --lightest-blue: #F8FBFF;
+  --mid-blue: #A7C7E7;
+  --white: #ffffff;
+  --shadow: rgba(0, 0, 0, 0.05);
+}
+
+/* Global Styles */
+body {
+  background: linear-gradient(to bottom, var(--light-blue), #064670);
+  font-family: 'Lato', sans-serif;
+  color: black;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Header Branding */
+.navbar-brand span.brand {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.navbar {
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+/* Navigation */
+.nav-link {
+  color: var(--navy);
+  font-weight: 500;
+}
+
+.nav-link.active,
+.nav-link:hover {
+  color: var(--teal);
+  border-bottom: 2px solid var(--teal);
+}
+
+/* Footer */
+footer {
+  background-color: var(--light-blue);
+  color: var(--navy);
+  padding: 1rem 0;
+  box-shadow: inset 0 1px 3px var(--shadow);
+}
+
+/* Cards */
+.card {
+  background: linear-gradient(to bottom, var(--light-blue), #b1d0e4);
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px var(--shadow);
+  transition: transform 0.2s ease-in-out;
+  height: 90%;
+}
+
+.card:hover {
+  transform: scale(1.01);
+}
+
+.card-title {
+  font-family: var(--primary-font);
+  color: black; 
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+
