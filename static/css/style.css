@@ -84,11 +84,13 @@ footer {
 
 .scale {
     width: 100%;
-    height: auto;
+    height: 150px;
     object-fit: cover;
     border-radius: 12px;
     box-shadow: 0 4px 10px var(--shadow);
     transition: transform 0.3s ease-in-out;
+    margin-bottom: 0;
+    margin-top: 10px;
 }
 
 .post-title {
@@ -100,3 +102,5 @@ footer {
   text-align: left;
   text-transform: capitalize;
 }
+
+
