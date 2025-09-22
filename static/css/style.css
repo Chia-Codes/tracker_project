@@ -21,7 +21,7 @@
 body {
   background: linear-gradient(to bottom, var(--light-blue), #064670);
   font-family: 'Lato', sans-serif;
-  color: var(--navy);
+  color: black;
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -59,8 +59,7 @@ footer {
 
 /* Cards */
 .card {
-  background: linear-gradient(to top, var(--light-blue), #b1d0e4);
-  color: var(--navy);
+  background: linear-gradient(to bottom, var(--light-blue), #b1d0e4);
   border: none;
   border-radius: 12px;
   box-shadow: 0 4px 10px var(--shadow);
@@ -74,12 +73,12 @@ footer {
 
 .card-title {
   font-family: var(--primary-font);
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 0.5rem;
-    font-size: 1.25rem;
-    text-align: center;
-    text-transform: capitalize;
+  color: black; 
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  text-align: center;
+  text-transform: capitalize;
 }
 
 
