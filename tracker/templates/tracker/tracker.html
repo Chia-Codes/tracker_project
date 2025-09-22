@@ -1,8 +1,54 @@
-{% extends "base.html" %}
-
-{% block content %}
-<div class="container mt-5">
-  <h1 class="text-center text-primary">Tracker Dashboard</h1>
-  <p class="text-muted text-center">Welcome to your personal cycle and symptom tracker.</p>
+{% extends "base.html" %} {% block content %}
+<div class="container my-4">
+  <h2>{{ month }}/{{ year }} Cycle Log</h2>
+  <form method="post">
+    {% csrf_token %}
+    <table class="table table-bordered text-center">
+      <thead>
+        <tr>
+          <th>Sun</th>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for week in month_days %}
+        <tr>
+          {% for day in week %}
+          <td class="{% if day.month != month %}text-muted{% endif %}">
+            <div>
+              <small>{{ day.day }}</small><br />
+              {% if day.month == month %}
+              <input
+                type="checkbox"
+                class="log-checkbox"
+                name="log_days"
+                value="{{ day }}"
+                {%
+                if
+                day
+                in
+                logged_dates
+                %}checked{%
+                endif
+                %}
+              />
+              {% endif %}
+            </div>
+          </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary mt-2">Submit Log</button>
+    <button id="log-flow-btn" type="submit" class="btn btn-danger mt-2 d-none">
+      Log Flow
+    </button>
+  </form>
 </div>
 {% endblock %}
