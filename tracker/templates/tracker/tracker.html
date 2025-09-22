@@ -28,6 +28,7 @@
                 class="log-checkbox"
                 name="log_days"
                 value="{{ day }}"
+                title="Log this day"
                 {%
                 if
                 day
@@ -51,4 +52,18 @@
     </button>
   </form>
 </div>
+
+<script>
+  const checkboxes = document.querySelectorAll('.log-checkbox');
+  const logFlowBtn = document.getElementById('log-flow-btn');
+
+  function toggleLogFlowButton() {
+    const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+    logFlowBtn.classList.toggle('d-none', checkedCount < 2);
+  }
+
+  checkboxes.forEach(cb => cb.addEventListener('change', toggleLogFlowButton));
+  toggleLogFlowButton();
+</script>
+
 {% endblock %}
