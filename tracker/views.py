@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from .models import CycleLog
 import calendar
 from datetime import date
+from .forms import CycleLogForm
+
 
 # Create your views here.
 
@@ -33,3 +35,20 @@ def tracker_view(request):
         'logged_dates': logged_dates,
     }
     return render(request, 'tracker/tracker.html', context)
+
+
+# Clycle Log Form View
+
+
+@login_required
+def cycle_log_form_view(request):
+    if request.method == 'POST':
+        form = CycleLogForm(request.POST)
+        if form.is_valid():
+            cycle_log = form.save(commit=False)
+            cycle_log.user = request.user
+            cycle_log.save()
+            return redirect('tracker')
+    else:
+        form = CycleLogForm()
+    return render(request, 'tracker/cycle_log_form.html', {'form': form})
