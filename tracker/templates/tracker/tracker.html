@@ -46,7 +46,9 @@
         {% endfor %}
       </tbody>
     </table>
-    <button type="submit" class="btn btn-primary mt-2">Submit Log</button>
+    <div class="mt-4">
+      <a href="{% url 'submit_log' %}" class="btn btn-primary">Submit Log</a>
+    </div>
     <button id="log-flow-btn" type="submit" class="btn btn-danger mt-2 d-none">
       Log Flow
     </button>
@@ -54,15 +56,19 @@
 </div>
 
 <script>
-  const checkboxes = document.querySelectorAll('.log-checkbox');
-  const logFlowBtn = document.getElementById('log-flow-btn');
+  const checkboxes = document.querySelectorAll(".log-checkbox");
+  const logFlowBtn = document.getElementById("log-flow-btn");
 
   function toggleLogFlowButton() {
-    const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
-    logFlowBtn.classList.toggle('d-none', checkedCount < 2);
+    const checkedCount = Array.from(checkboxes).filter(
+      (cb) => cb.checked
+    ).length;
+    logFlowBtn.classList.toggle("d-none", checkedCount < 2);
   }
 
-  checkboxes.forEach(cb => cb.addEventListener('change', toggleLogFlowButton));
+  checkboxes.forEach((cb) =>
+    cb.addEventListener("change", toggleLogFlowButton)
+  );
   toggleLogFlowButton();
 </script>
 
