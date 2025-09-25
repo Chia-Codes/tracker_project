@@ -1,31 +1,17 @@
-import os
-import pickle
-from google_auth_oauthlib.flow import InstalledAppFlow
-from googleapiclient.discovery import build
-
-# Scope for Google Sheets API
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
-
-# Path to google-credentials.json (downloaded credentials)
-CREDENTIALS_PATH = 'credentials.json' 
+import gspread
 
 
-def get_google_sheets_service():
-    creds = None
+# Initialize gspread client
+def get_gspread_client():
+    # Auth using credentials.json and authorized_user.json
+    return gspread.oauth()
 
-    # Load credentials from token.pickle if it exists
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
 
-    # If no valid credentials, go through the OAuth flow
-    if not creds or not creds.valid:
-        flow = InstalledAppFlow.from_client_secrets_file(CREDENTIALS_PATH, SCOPES)
-        creds = flow.run_local_server(port=0)
-
-        # Save credentials for future use
-        with open('token.pickle', 'wb') as token:
-            pickle.dump(creds, token)
-
-    service = build('sheets', 'v4', credentials=creds)
-    return service
+# Create a new Google Sheet for a user
+def create_user_sheet(username):
+    gc = get_gspread_client()
+    spreadsheet = gc.create(f"{username}_Cycle_Log")
+    
+    # Move the sheet to a folder or tag it if needed
+    print(f"Created sheet for {username}: https://docs.google.com/spreadsheets/d/{spreadsheet.id}")
+    return spreadsheet.id
