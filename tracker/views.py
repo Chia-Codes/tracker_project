@@ -1,9 +1,16 @@
+# Django Imports
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import CycleLog
+
+# Cycle Log Imports
+from .models import CycleLog, UserSheet
+from .forms import CycleLogForm
+# Google Sheets Imports
+from .google_sheets import create_user_sheet
+
+# Utilities
 import calendar
 from datetime import date
-from .forms import CycleLogForm
 
 
 # Create your views here.
@@ -36,18 +43,22 @@ def tracker_view(request):
     return render(request, 'tracker/tracker.html', context)
 
 
-# Clycle Log Form View
+# Cycle Log Form View
 @login_required
 def cycle_log_form_view(request):
     if request.method == 'POST':
         form = CycleLogForm(request.POST)
         if form.is_valid():
-            cycle_log = form.save(commit=False)
-            cycle_log.user = request.user
-            cycle_log.save()
+            user_sheet, created = UserSheet.objects.get_or_create(user=request.user)
+            if created:
+                sheet_id = create_user_sheet(request.user.username)
+                user_sheet.sheet_id = sheet_id
+                user_sheet.save()
+            else:
+                form = CycleLogForm()
             return redirect('tracker')
     else:
-        form = CycleLogForm()
+        form = CycleLogForm() # Empty form for GET request
     return render(request, 'tracker/cycle_log_form.html', {'form': form})
 
 
