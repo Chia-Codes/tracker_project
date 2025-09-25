@@ -9,4 +9,7 @@ node_modules/
 cloudinary_python.txt
 .venv/
 env/
-blog/fixtures/ 
+blog/fixtures/
+tracker/fixtures/
+db.sqlite3
+google-credentials.json
