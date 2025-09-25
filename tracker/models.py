@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
+# Cycle Log Model
 class CycleLog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
@@ -12,3 +13,12 @@ class CycleLog(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.date} - {self.symptom}"
+   
+
+# User Sheet Model
+class UserSheet(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    sheet_id = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.user.username}'s Sheet"
