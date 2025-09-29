@@ -27,6 +27,11 @@ body {
   min-height: 100vh;
 }
 
+/* Headings */
+h1, h2, h3 {
+margin-top: 1rem;
+}
+
 /* Header Branding */
 .navbar-brand span.brand {
   font-weight: bold;

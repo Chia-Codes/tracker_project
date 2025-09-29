@@ -13,4 +13,6 @@ blog/fixtures/
 tracker/fixtures/
 db.sqlite3
 google-credentials.json
-credentials.json
+creds.json
+encoded.txt
+
