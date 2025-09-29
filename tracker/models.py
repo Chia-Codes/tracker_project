@@ -6,6 +6,11 @@ from django.contrib.auth.models import User
 
 # Cycle Log Model
 class CycleLog(models.Model):
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["user", "date"], name="uniq_entry_per_user_per_day"),
+        ]
+        indexes = [models.Index(fields=["user", "-date"], name="idx_user_date_desc")]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
     symptom = models.CharField(max_length=255, blank=True)
