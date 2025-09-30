@@ -29,3 +29,7 @@ class CycleLogForm(forms.ModelForm):
             'date': forms.DateInput(attrs={'type': 'date'}),
             
         }
+        
+    def clean_symptom(self):
+        data = self.cleaned_data.get('symptom', [])
+        return ",".join(data) if isinstance(data, list) else (data or "")
