@@ -1,6 +1,9 @@
 # Django Imports
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+
+import csv
 
 # Cycle Log Imports
 from .models import CycleLog, UserSheet
@@ -14,6 +17,24 @@ from datetime import date
 
 
 # Create your views here.
+
+#CSV Export 
+@login_required
+def export_entries_csv(request):
+    """Download the current user's logs as CSV."""
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="trackher_entries.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['date', 'symptom', 'notes'])
+
+    qs = CycleLog.objects.filter(user=request.user).order_by('-date')
+    for log in qs:
+        writer.writerow([log.date.isoformat(), log.symptom, log.notes])
+
+    return response
+
+
 # Tracker View
 @login_required
 def tracker_view(request):
