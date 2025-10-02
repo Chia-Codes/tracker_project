@@ -18,7 +18,12 @@ from datetime import date
 
 # Create your views here.
 
-#CSV Export 
+# Journey
+def journey(request):
+    return render(request, 'tracker/journey.html')
+
+
+# CSV Export 
 @login_required
 def export_entries_csv(request):
     """Download the current user's logs as CSV."""
