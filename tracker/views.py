@@ -17,6 +17,10 @@ from datetime import date
 
 
 # Create your views here.
+# Community 
+def community(request):
+    return render(request, 'tracker/community.html')
+
 
 # Sources 
 def sources(request):

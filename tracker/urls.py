@@ -9,4 +9,5 @@ urlpatterns = [
     path('export.csv', views.export_entries_csv, name='export_csv'),
     path('journey/', views.journey, name='journey'),
     path('sources/', views.sources, name='sources'),
+    path('community/', views.community, name='community'),
 ]
