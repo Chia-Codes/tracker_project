@@ -8,4 +8,5 @@ urlpatterns = [
     path('submit-log/', views.submit_log, name='submit_log'),
     path('export.csv', views.export_entries_csv, name='export_csv'),
     path('journey/', views.journey, name='journey'),
+    path('sources/', views.sources, name='sources'),
 ]

@@ -18,6 +18,11 @@ from datetime import date
 
 # Create your views here.
 
+# Sources 
+def sources(request):
+    return render(request, 'tracker/sources.html')
+
+
 # Journey
 def journey(request):
     return render(request, 'tracker/journey.html')
