@@ -4,16 +4,17 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 import csv
+import os
 
 # Cycle Log Imports
 from .models import CycleLog, UserSheet
 from .forms import CycleLogForm
-# Google Sheets Imports
-from .google_sheets import create_user_sheet
 
 # Utilities
 import calendar
 from datetime import date
+from django.contrib import messages
+from .google_sheets import fetch_sheet_rows
 
 
 # Create your views here.
@@ -22,9 +23,34 @@ def community(request):
     return render(request, 'tracker/community.html')
 
 
-# Sources 
+# Resources 
 def sources(request):
-    return render(request, 'tracker/sources.html')
+    sheet_id = os.getenv("GOOGLE_RESOURCES_SHEET_ID")
+    worksheet = os.getenv("GOOGLE_RESOURCES_WORKSHEET", "Resources")
+
+    resources = []
+    if sheet_id:
+        try:
+            records = fetch_sheet_rows(sheet_id, worksheet)
+            # normalise header variations 
+            normalised = []
+            for r in records:
+                normalised.append({
+                    'title': r.get('Title') or r.get('title') or r.get('NAME') or '',
+                    'description': r.get('Description') or r.get('Desc') or r.get('description') or '',
+                    'url': r.get('URL') or r.get('Link') or r.get('link') or '',
+                    'image': r.get('Image') or r.get('image') or '',
+                    'tag': r.get('Tag') or r.get('tag') or '',
+                })
+            resources = normalised
+
+        except Exception as e:
+            messages.error(request, "Could not load resources from Google Sheets.")
+            resources = []
+    else:
+        messages.info(request, "Set GOOGLE_RESOURCES_SHEET_ID to show resources.")
+
+    return render(request, 'tracker/resources.html', {'resources': resources})
 
 
 # Journey
