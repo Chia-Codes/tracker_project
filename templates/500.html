@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5 text-center">
+  <h1 class="display-5">Something went wrong (500)</h1>
+  <p class="lead">Sorry about that. We've logged the error.</p>
+  <a class="btn btn-primary" href="{% url 'tracker' %}">Back to Tracker</a>
+</div>
+{% endblock %}
