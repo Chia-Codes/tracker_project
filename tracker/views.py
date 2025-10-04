@@ -2,6 +2,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+from django.views.decorators.http import require_GET
 
 import csv
 import os
@@ -18,6 +20,13 @@ from .google_sheets import fetch_sheet_rows
 
 
 # Create your views here.
+# 500 Something went wrong error
+@staff_member_required
+@require_GET
+def boom_500(request):
+    raise RuntimeError("Diagnostic 500: intentional crash for testing")
+
+
 # Community 
 def community(request):
     return render(request, 'tracker/community.html')

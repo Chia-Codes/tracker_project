@@ -10,4 +10,5 @@ urlpatterns = [
     path('journey/', views.journey, name='journey'),
     path('sources/', views.sources, name='sources'),
     path('community/', views.community, name='community'),
+    path('boom-500/', views.boom_500, name='boom_500'),
 ]
