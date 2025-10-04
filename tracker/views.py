@@ -50,7 +50,7 @@ def sources(request):
     else:
         messages.info(request, "Set GOOGLE_RESOURCES_SHEET_ID to show resources.")
 
-    return render(request, 'tracker/resources.html', {'resources': resources})
+    return render(request, 'tracker/sources.html', {'resources': resources})
 
 
 # Journey

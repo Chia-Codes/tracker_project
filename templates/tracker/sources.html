@@ -1,12 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container py-4">
-  <h1 class="mb-3">Sources</h1>
-  <p>Reading list and general resources.</p>
-  <ul>
-    <li>Intro to menstrual cycles (overview)</li>
-    <li>Healthy tracking habits</li>
-    <li>Links to general wellness resources</li>
-  </ul>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 m-0">Sources</h1>
+    <div class="text-muted">Google Sheets → Cards</div>
+  </div>
+
+  <div class="row g-3">
+    {% for r in resources %}
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100">
+          {% if r.image %}
+            <img src="{{ r.image }}" class="card-img-top" alt="Resource image">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ r.title }}</h5>
+            {% if r.tag %}<span class="badge text-bg-secondary mb-2">{{ r.tag }}</span>{% endif %}
+            <p class="card-text">{{ r.description }}</p>
+          </div>
+          <div class="card-footer bg-transparent">
+            {% if r.url %}
+              <a href="{{ r.url }}" target="_blank" rel="noopener" class="btn btn-primary">Visit</a>
+            {% else %}
+              <span class="text-muted">No link provided</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12">
+        <div class="alert alert-info">No sources to show yet.</div>
+      </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}
