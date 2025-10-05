@@ -1,0 +1,21 @@
+{
+  "name": "tracker_project",
+  "version": "1.0.0",
+  "description": "**TrackHer** is a full-stack Django web app that lets users log menstrual cycles and symptoms via a calendar-based interface. It supports personalized cycle tracking and offers optional export to Google Sheets.",
+  "main": "index.js",
+  "scripts": {
+  "test": "jest",
+  "test:watch": "jest --watch"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chia-Codes/tracker_project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chia-Codes/tracker_project/issues"
+  },
+  "homepage": "https://github.com/Chia-Codes/tracker_project#readme"
+}
