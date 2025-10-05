@@ -1,12 +1,12 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <div class="container py-4">
   <h1 class="mb-3">Your Journey</h1>
+  {% if log_count < 30 %}
+  <div class="alert alert-info" role="status">
+    Journey tracking will be available after a month’s log. Keep tracking daily
+    to unlock insights.
+  </div>
+  {% endif %}
   <p>Track milestones, learn about cycle phases, and reflect on patterns.</p>
-  <ul>
-    <li>Follicular → Ovulation → Luteal (overview)</li>
-    <li>Tips for logging regularly</li>
-    <li>Privacy-first guidance</li>
-  </ul>
 </div>
 {% endblock %}

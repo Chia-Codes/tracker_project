@@ -64,7 +64,10 @@ def sources(request):
 
 # Journey
 def journey(request):
-    return render(request, 'tracker/journey.html')
+    log_count = 0
+    if request.user.is_authenticated:
+        log_count = CycleLog.objects.filter(user=request.user).count()
+    return render(request, 'tracker/journey.html', {'log_count': log_count})
 
 
 # CSV Export 
