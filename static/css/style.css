@@ -108,4 +108,8 @@ footer {
   text-transform: capitalize;
 }
 
+/* Tracker */
+.calendar-day.selected { 
+  outline: 2px solid currentColor; 
+  border-radius: .25rem; }
 

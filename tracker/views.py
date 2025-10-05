@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.http import require_GET
+from django.contrib import messages
 
 import csv
 import os
@@ -14,8 +15,7 @@ from .forms import CycleLogForm
 
 # Utilities
 import calendar
-from datetime import date
-from django.contrib import messages
+from datetime import date, datetime
 from .google_sheets import fetch_sheet_rows
 
 
@@ -136,12 +136,47 @@ def cycle_log_form_view(request):
 @login_required
 def submit_log(request):
     if request.method == 'POST':
-        form = CycleLogForm(request.POST)
-        if form.is_valid():
-            cycle_log = form.save(commit=False)
-            cycle_log.user = request.user
-            cycle_log.save()
-            return redirect('tracker')
-    else:
-        form = CycleLogForm()
+        symptom = request.POST.get('symptom', '')
+        notes   = request.POST.get('notes', '')
+        flow    = request.POST.get('flow') 
+
+        # Support multiple (checkboxes name="log_days") or single
+        date_list = request.POST.getlist('log_days')
+        if not date_list:
+            one = request.POST.get('date')  # single-date fallback
+            if one:
+                date_list = [one]
+
+        saved = 0
+        for ds in date_list:
+            try:
+                d = datetime.strptime(ds, '%Y-%m-%d').date()
+            except Exception:
+                # Ensure your checkbox value is strictly YYYY-MM-DD 
+                continue
+
+            obj, created = CycleLog.objects.get_or_create(
+                user=request.user,
+                date=d,
+                defaults={'symptom': symptom, 'notes': notes}
+            )
+            if not created:
+                obj.symptom = symptom
+                obj.notes   = notes
+
+            if hasattr(obj, 'flow') and flow:
+                obj.flow = flow
+
+            obj.save()
+            saved += 1
+
+        if saved:
+            messages.success(request, f"Saved {saved} log{'s' if saved != 1 else ''}.")
+        else:
+            messages.error(request, 'Pick at least one date before saving.')
+
+        return redirect('tracker')  # keep your existing redirect name/target
+
+    # GET fallback (if you keep this view for form rendering)
+    form = CycleLogForm()
     return render(request, 'tracker/cycle_log_form.html', {'form': form})
