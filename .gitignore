@@ -1,18 +1,58 @@
-.venv/core.Microsoft*
-core.mongo*
-core.python*
-env.py
+# Python
 __pycache__/
 *.py[cod]
-node_modules/
-.github/
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+core.mongo*
+core.python*
 cloudinary_python.txt
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Env & secrets
+.env
+env.py
+.env.*
+venv/
 .venv/
-env/
+.venv/core.Microsoft*
+
+# Google service account (any form)
+sa.json
+sa.json.b64
+*.sa.json
+*.b64
+
+# Django static build output (generated)
+staticfiles/
+encoded.txt
+
+# SQLite (if ever used locally)
+*.sqlite3
+db.sqlite3
+
+# Coverage / test cache
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Node (if used for asset pipelines)
+node_modules/
+
+#Github
+.github/
+
+#Trackher
 blog/fixtures/
 tracker/fixtures/
-db.sqlite3
+
+# JSON
 credentials.json
-encoded.txt
-.env
-staticfiles/
+
