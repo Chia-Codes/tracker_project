@@ -27,12 +27,12 @@ def boom_500(request):
     raise RuntimeError("Diagnostic 500: intentional crash for testing")
 
 
-# Community 
+# Community
 def community(request):
     return render(request, 'tracker/community.html')
 
 
-# Resources 
+# Resources
 def sources(request):
     sheet_id = os.getenv("GOOGLE_RESOURCES_SHEET_ID")
     worksheet = os.getenv("GOOGLE_RESOURCES_WORKSHEET", "Resources")
@@ -41,23 +41,30 @@ def sources(request):
     if sheet_id:
         try:
             records = fetch_sheet_rows(sheet_id, worksheet)
-            # normalise header variations 
+            # normalise header variations
             normalised = []
             for r in records:
                 normalised.append({
-                    'title': r.get('Title') or r.get('title') or r.get('NAME') or '',
-                    'description': r.get('Description') or r.get('Desc') or r.get('description') or '',
-                    'url': r.get('URL') or r.get('Link') or r.get('link') or '',
-                    'image': r.get('Image') or r.get('image') or '',
-                    'tag': r.get('Tag') or r.get('tag') or '',
+                    'title': r.get('Title') or r.get(
+                        'title') or r.get('NAME') or '',
+                    'description': r.get('Description') or r.get(
+                        'Desc') or r.get('description') or '',
+                    'url': r.get('URL') or r.get('Link') or r.get(
+                        'link') or '',
+                    'image': r.get('Image') or r.get(
+                        'image') or '',
+                    'tag': r.get('Tag') or r.get(
+                        'tag') or '',
                 })
             resources = normalised
 
         except Exception as e:
-            messages.error(request, "Could not load resources from Google Sheets.")
+            messages.error(
+                request, "Could not load resources from Google Sheets.")
             resources = []
     else:
-        messages.info(request, "Set GOOGLE_RESOURCES_SHEET_ID to show resources.")
+        messages.info(
+            request, "Set GOOGLE_RESOURCES_SHEET_ID to show resources.")
 
     return render(request, 'tracker/sources.html', {'resources': resources})
 
@@ -70,12 +77,13 @@ def journey(request):
     return render(request, 'tracker/journey.html', {'log_count': log_count})
 
 
-# CSV Export 
+# CSV Export
 @login_required
 def export_entries_csv(request):
     """Download the current user's logs as CSV."""
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="trackher_entries.csv"'
+    response[
+        'Content-Disposition'] = 'attachment; filename="trackher_entries.csv"'
 
     writer = csv.writer(response)
     writer.writerow(['date', 'symptom', 'notes'])
@@ -101,10 +109,13 @@ def tracker_view(request):
         selected_days = request.POST.getlist("log_days")
         for day_str in selected_days:
             log_date = date.fromisoformat(day_str)
-            CycleLog.objects.get_or_create(user=request.user, date=log_date, defaults={'symptom': 'Flow', 'notes': ''})
+            CycleLog.objects.get_or_create(
+                user=request.user, date=log_date, defaults={
+                    'symptom': 'Flow', 'notes': ''})
         return redirect('tracker')  # Redirect to clear form after logging
 
-    user_logs = CycleLog.objects.filter(user=request.user, date__year=year, date__month=month)
+    user_logs = CycleLog.objects.filter(
+        user=request.user, date__year=year, date__month=month)
     logged_dates = {log.date for log in user_logs}
 
     context = {
@@ -120,9 +131,10 @@ def tracker_view(request):
 @login_required
 def submit_log(request):
     if request.method == 'POST':
-        symptom = request.POST.get('symptom', '')
-        notes   = request.POST.get('notes', '')
-        flow    = request.POST.get('flow') 
+        symptom = request.POST.get(
+            'symptom', '')notes = request.POST.get(
+                'notes', '')flow = request.POST.get(
+                    'flow')
 
         # Support multiple (checkboxes name="log_days") or single
         date_list = request.POST.getlist('log_days')
@@ -136,7 +148,7 @@ def submit_log(request):
             try:
                 d = datetime.strptime(ds, '%Y-%m-%d').date()
             except Exception:
-                # Ensure your checkbox value is strictly YYYY-MM-DD 
+                # Ensure your checkbox value is strictly YYYY-MM-DD
                 continue
 
             obj, created = CycleLog.objects.get_or_create(
@@ -145,8 +157,7 @@ def submit_log(request):
                 defaults={'symptom': symptom, 'notes': notes}
             )
             if not created:
-                obj.symptom = symptom
-                obj.notes   = notes
+                obj.symptom = symptom obj.notes = notes
 
             if hasattr(obj, 'flow') and flow:
                 obj.flow = flow
@@ -155,7 +166,8 @@ def submit_log(request):
             saved += 1
 
         if saved:
-            messages.success(request, f"Saved {saved} log{'s' if saved != 1 else ''}.")
+            messages.success(
+                request, f"Saved {saved} log{'s' if saved != 1 else ''}.")
         else:
             messages.error(request, 'Pick at least one date before saving.')
 

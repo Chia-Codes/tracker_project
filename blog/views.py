@@ -42,4 +42,4 @@ def post_detail(request, slug):
             "comment_count": comment_count,
             "comment_form": comment_form,
         },
-)
+    )
