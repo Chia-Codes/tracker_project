@@ -10,7 +10,7 @@ import csv
 import os
 
 # Cycle Log Imports
-from .models import CycleLog, UserSheet
+from .models import CycleLog
 from .forms import CycleLogForm
 
 # Utilities
@@ -114,25 +114,6 @@ def tracker_view(request):
         'logged_dates': logged_dates,
     }
     return render(request, 'tracker/tracker.html', context)
-
-
-# Cycle Log Form View
-@login_required
-def cycle_log_form_view(request):
-    if request.method == 'POST':
-        form = CycleLogForm(request.POST)
-        if form.is_valid():
-            user_sheet, created = UserSheet.objects.get_or_create(user=request.user)
-            if created:
-                sheet_id = create_user_sheet(request.user.username)
-                user_sheet.sheet_id = sheet_id
-                user_sheet.save()
-            else:
-                form = CycleLogForm()
-            return redirect('tracker')
-    else:
-        form = CycleLogForm() # Empty form for GET request
-    return render(request, 'tracker/cycle_log_form.html', {'form': form})
 
 
 # Submit Log View
