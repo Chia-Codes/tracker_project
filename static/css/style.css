@@ -111,5 +111,11 @@ footer {
 /* Tracker */
 .calendar-day.selected { 
   outline: 2px solid currentColor; 
-  border-radius: .25rem; }
+  border-radius: .25rem; 
+}
+
+.selected-date { 
+  outline: 2px solid; 
+  outline-offset: -2px; 
+}
 
