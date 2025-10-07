@@ -8,7 +8,7 @@ The live link can be found here: [View the live project here](https://trackher-c
 
 ---
 
-![Mock Up](docs/readme_images/mockup.PNG) 
+![Mock Up](docs/readme_images/mockup.png) 
 
 ## Table of Contents
 
@@ -76,7 +76,7 @@ All user stories were grouped into epics and prioritized using MoSCoW (Must/Shou
 
 A Kanban board was created using GitHub Projects and can be located here: [Kanban Board Link](https://github.com/users/Chia-Codes/projects/9).
 
-![Kanban image](docs/readme_images/kanban.PNG) 
+![Kanban image](docs/readme_images/kanban.png) 
 
 #### Epics
 
@@ -164,7 +164,7 @@ Write README, testing notes, and usage docs; document environment setup and depl
 
 Users can view the current month’s calendar with indicators for days that have been logged. Clicking a day opens the log form.
 
-![Calendar View](docs/readme_images/calendar-view.PNG)
+![Calendar View](docs/readme_images/calendar-view.png)
 `USER STORY – As a user, I want to add symptoms and notes for a day`
 
 **Daily Log Form**
@@ -176,14 +176,14 @@ A simple form captures:
 * Symptoms (multi-select)
 * Optional notes (short text)
 
-![Daily Log Form](docs/readme_images/daily-log-form.PNG)
+![Daily Log Form](docs/readme_images/daily-log-form.png)
 `USER STORY – As a user, I want to edit or delete a day’s log`
 
 **Manage Day Logs**
 
 From the calendar or a list view, users can open a day’s entry to edit fields or delete the log with confirmation.
 
-![Manage Logs](docs/readme_images/manage-logs.PNG)-----------------------------------------------------------------------------------------------------------------------------------------
+![Manage Logs](docs/readme_images/manage-logs.png)-----------------------------------------------------------------------------------------------------------------------------------------
 
 `USER STORY – As a user, I want visual feedback after actions`
 
@@ -191,7 +191,7 @@ From the calendar or a list view, users can open a day’s entry to edit fields 
 
 Success and error toasts are displayed after create/update/delete so users get immediate feedback.
 
-![Toasts](docs/readme_images/toasts.PNG) 
+![Toasts](docs/readme_images/toasts.png) 
 
 `USER STORY – As a user, I want to export my logs to Google Sheets`
 
@@ -209,35 +209,35 @@ Success and error toasts are displayed after create/update/delete so users get i
 
 * Login View
 
-![Calendar Wireframe](docs/wireframes/01_login.PNG)
+![Calendar Wireframe](docs/wireframes/01_login.png)
 
 * Register View
 
-![Calendar Wireframe](docs/wireframes/02_register.PNG)
+![Calendar Wireframe](docs/wireframes/02_register.png)
 
 * Dashboard View
 
-![Calendar Wireframe](docs/wireframes/03_dashboard.PNG)
+![Calendar Wireframe](docs/wireframes/03_dashboard.png)
 
 * Calendar View
 
-![Calendar Wireframe](docs/wireframes/04_calendar.PNG)
+![Calendar Wireframe](docs/wireframes/04_calendar.png)
 
 * Daily Log
 
-![Daily Log Wireframe](docs/wireframes/05_cycle_log_form.PNG)
+![Daily Log Wireframe](docs/wireframes/05_cycle_log_form.png)
 
 * History / Insights
 
-![Analytics Wireframe](docs/wireframes/06_insights.PNG)
+![Analytics Wireframe](docs/wireframes/06_insights.png)
 
 * Settings 
 
-![Export Wireframe](docs/wireframes/07_profile_settings.PNG)
+![Export Wireframe](docs/wireframes/07_profile_settings.png)
 
 * Log form
 
-![Export Wireframe](docs/wireframes/08_quick_log_form.PNG)
+![Export Wireframe](docs/wireframes/08_quick_log_form.png)
 
 ### Database-Design
 
@@ -260,7 +260,7 @@ TrackHer uses Django’s auth `User` and three core models:
 
 **Example ERD**
 
-![Entity Relationship Diagram](docs/readme_images/erd.PNG)
+![Entity Relationship Diagram](docs/readme_images/erd.png)
 
 ### Security
 
@@ -296,7 +296,7 @@ Clean, friendly UI emphasizing readability and quick daily input. Calendar highl
 * `messages` framework for toasts
 * `timezone`, `date` utilities for calendar logic
 
-**External Python Modules** ![Requirements](docs/readme_images/requirements.txt.PNG) 
+**External Python Modules** ![Requirements](docs/readme_images/requirements.txt.png) 
 
 * `Django` (4.x)
 * `gspread` – Google Sheets API client
@@ -309,7 +309,7 @@ Clean, friendly UI emphasizing readability and quick daily input. Calendar highl
 
 ## Testing
 
-Test cases and results can be found in the [TESTING.md](TESTING.PNG) file.
+Test cases and results can be found in the [TESTING.md](TESTING.png) file.
 
 # Pytest
 
@@ -349,7 +349,7 @@ Manual testing covered:
 
  - Workaround: Run python manage.py collectstatic --noinput locally and redeploy; on Heroku ensure DISABLE_COLLECTSTATIC is not set and STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage".
 
- - ## Fix planned: Add a CI step to fail the build if collectstatic errors; keep all asset paths in templates in sync with /static/....
+ - #### Fix planned: Add a CI step to fail the build if collectstatic errors; keep all asset paths in templates in sync with /static/....
 
 ### Issue #2: Calendar “Submit Log” vs “Log Flow” toggle not applying on the site
 
@@ -574,94 +574,68 @@ Most commonly, forks are used to either propose changes to someone else’s proj
 
 ## Credits
 
-- Django
+- [Django](https://www.djangoproject.com/) – Web framework for models, views, templates, auth, admin.  
+  Live link: https://www.djangoproject.com/
 
-    Web framework used for models, views, templates, auth, and admin.
+- [django-allauth](https://django-allauth.readthedocs.io/) – Registration, login, account management.  
+  Live link: https://django-allauth.readthedocs.io/
 
-    django-allauth
+- [Bootstrap 5](https://getbootstrap.com/) – Layout, grid, components, responsive utilities.  
+  Live link: https://getbootstrap.com/
 
-    Registration, login, and account management.
+- [Font Awesome](https://fontawesome.com/) – Iconography across navigation and UI.  
+  Live link: https://fontawesome.com/
 
-- Bootstrap 5
+- [Google Fonts](https://fonts.google.com/) – Site typography.  
+  Live link: https://fonts.google.com/
 
-    Layout, grid, components (navbar, buttons, tables) and responsive utilities.
+- [WhiteNoise](https://whitenoise.evans.io/en/stable/) – Serve static files in production (hashed manifests).  
+  Live link: https://whitenoise.evans.io/en/stable/
 
-- Font Awesome
+- [Gunicorn](https://gunicorn.org/) – WSGI server for production.  
+  Live link: https://gunicorn.org/
 
-    Iconography used across navigation and UI elements.
+- [Heroku](https://www.heroku.com/) – App hosting and deployment.  
+  Live link: https://www.heroku.com/
 
-- Google Fonts
+- [PostgreSQL](https://www.postgresql.org/) & [psycopg2](https://www.psycopg.org/) – Production DB and Python driver.  
+  Live links: https://www.postgresql.org/ | https://www.psycopg.org/
 
-    Site typography.
+- [Google Sheets API](https://developers.google.com/sheets/api) & [gspread](https://docs.gspread.org/) – Read/write Sheets for resources/logs.  
+  Live links: https://developers.google.com/sheets/api | https://docs.gspread.org/
 
-- Whitenoise
+- [Jest](https://jestjs.io/) & [jsdom](https://github.com/jsdom/jsdom) – Front-end unit tests for calendar interactions.  
+  Live links: https://jestjs.io/ | https://github.com/jsdom/jsdom
 
-    Serving static files in production with hashed manifests.
+- [GitHub Actions](https://github.com/features/actions) – CI for tests and static analysis.  
+  Live link: https://github.com/features/actions
 
-- Gunicorn
+- [TinyPNG](https://tinypng.com/) – Image compression to improve load performance.  
+  Live link: https://tinypng.com/
 
-    WSGI server used in production.
+- [Pexels](https://www.pexels.com/) – Royalty-free images (credited in captions).  
+  Live link: https://www.pexels.com/
 
-- Heroku
+- [Canva](https://www.canva.com/) – Logo and simple graphics.  
+  Live link: https://www.canva.com/
 
-    App hosting and deployment pipeline.
+- [Favicon.io](https://favicon.io/) – Favicon generation.  
+  Live link: https://favicon.io/
 
-- PostgreSQL & psycopg2
+- [MDN Web Docs](https://developer.mozilla.org/) – HTML/CSS/JS and browser API references.  
+  Live link: https://developer.mozilla.org/
 
-    Production database and Python driver.
+- [Stack Overflow](https://stackoverflow.com/) – Debugging references (linked in code comments).  
+  Live link: https://stackoverflow.com/
 
-- gspread & Google Sheets API
+- [Chrome DevTools](https://developer.chrome.com/docs/devtools/) & [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/) – Performance/accessibility audits; JS/network debugging.  
+  Live links: https://developer.chrome.com/docs/devtools/ | https://developer.chrome.com/docs/lighthouse/overview/
 
-    Reading/writing Google Sheets for resources and logs.
+- [W3Schools](https://www.w3schools.com/) – Quick HTML/CSS/JS lookups during prototyping.  
+  Live link: https://www.w3schools.com/
 
-- Jest & jsdom
-
-    Unit tests for front-end interactions (calendar selection logic).
-
-- GitHub Actions
-
-    CI workflows for tests and static analysis.
-
-- TinyPNG
-
-    Image compression to improve load performance.
-
-- Pexels
-
-    Royalty-free images used for mockups/hero sections (attributed in captions).
-
-- Canva
-
-    Logo and simple graphics creation.
-
-- Favicon.io
-
-    Favicon generation.
-
-- MDN Web Docs
-
-     Reference for HTML/CSS/JS behavior and browser APIs.
-
-- Stack Overflow
-
-    Solutions and patterns referenced during debugging (linked in code comments where applicable).
-
-- Chrome DevTools & Lighthouse
-
-    Performance and accessibility audits; debugging network/JS issues.
-
-- W3Schools
-     (light reference)
-
-      Quick lookups for HTML/CSS/JS syntax during UI prototyping.
-
-- Slack
-
-     Functionality and app communication and feedback during development.
-
-- Code Institute
-
-    Learning resources and mentor guidance used to inform patterns and setup.
+- [Code Institute](https://codeinstitute.net/) – Learning resources and mentor guidance.  
+  Live link: https://codeinstitute.net/
 
 
 ---
@@ -670,6 +644,8 @@ Most commonly, forks are used to either propose changes to someone else’s proj
 >
 > * If using a service account for Sheets, remember to share the target sheet with the service account email and verify the worksheet name expected by your export function.
 > * Review privacy language if distributing publicly (GDPR/UK GDPR considerations).
+
+
 
 
 
