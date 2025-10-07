@@ -17,6 +17,8 @@ from .forms import CycleLogForm
 import calendar
 from datetime import date, datetime
 from .google_sheets import fetch_sheet_rows
+import logging
+logger = logging.getLogger(__name__)
 
 
 # Create your views here.
@@ -59,9 +61,8 @@ def sources(request):
             resources = normalised
 
         except Exception as e:
-            messages.error(
-                request, "Could not load resources from Google Sheets.")
-            resources = []
+            messages.error(request, f"Error: {e}")
+        return redirect('tracker')
     else:
         messages.info(
             request, "Set GOOGLE_RESOURCES_SHEET_ID to show resources.")
@@ -132,8 +133,10 @@ def tracker_view(request):
 def submit_log(request):
     if request.method == 'POST':
         symptom = request.POST.get(
-            'symptom', '')notes = request.POST.get(
-                'notes', '')flow = request.POST.get(
+            'symptom', '')
+        notes = request.POST.get(
+                'notes', '')
+        flow = request.POST.get(
                     'flow')
 
         # Support multiple (checkboxes name="log_days") or single
@@ -157,7 +160,8 @@ def submit_log(request):
                 defaults={'symptom': symptom, 'notes': notes}
             )
             if not created:
-                obj.symptom = symptom obj.notes = notes
+                obj.symptom = symptom 
+                obj.notes = notes
 
             if hasattr(obj, 'flow') and flow:
                 obj.flow = flow
