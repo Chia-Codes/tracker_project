@@ -207,21 +207,37 @@ Success and error toasts are displayed after create/update/delete so users get i
 
 ### Wireframes
 
+* Login View
+
+![Calendar Wireframe](docs/wireframes/01_login.PNG)
+
+* Register View
+
+![Calendar Wireframe](docs/wireframes/02_register.PNG)
+
+* Dashboard View
+
+![Calendar Wireframe](docs/wireframes/03_dashboard.PNG)
+
 * Calendar View
 
-![Calendar Wireframe](docs/wireframes/calendar.JPG)----------------------------------------------------------------------------------------------------------------
+![Calendar Wireframe](docs/wireframes/04_calendar.PNG)
 
 * Daily Log
 
-![Daily Log Wireframe](docs/wireframes/daily_log.JPG)----------------------------------------------------------------------------------------------------------------
+![Daily Log Wireframe](docs/wireframes/05_cycle_log_form.PNG)
 
-* History / Analytics
+* History / Insights
 
-![Analytics Wireframe](docs/wireframes/analytics.JPG)----------------------------------------------------------------------------------------------------------------
+![Analytics Wireframe](docs/wireframes/06_insights.PNG)
 
-* Settings / Export
+* Settings 
 
-![Export Wireframe](docs/wireframes/export.JPG)----------------------------------------------------------------------------------------------------------------
+![Export Wireframe](docs/wireframes/07_profile_settings.PNG)
+
+* Log form
+
+![Export Wireframe](docs/wireframes/08_quick_log_form.PNG)
 
 ### Database-Design
 
@@ -304,7 +320,25 @@ Clean, friendly UI emphasizing readability and quick daily input. Calendar highl
 
 ## Testing
 
-Test cases and results can be found in the [TESTING.md](TESTING.md) file.-----------------------------------------------------------------------------------------------------------
+Test cases and results can be found in the [TESTING.md](TESTING.PNG) file.
+
+# Pytest
+
+**File:** `tests/test_smoke.py`
+```python
+def test_smoke():
+    assert True
+```
+
+Run locally:
+```bash
+pytest -q
+```
+
+If you see “no tests ran”, ensure the file path is `tests/test_smoke.py` and `pytest` is installed.
+
+---
+
 
 Manual testing covered:
 
@@ -343,6 +377,65 @@ git push
 5. Connect to GitHub and deploy the `main` branch.
 
 The live link can be found here: [Live Site](https://trackher-c1d90b82fba4.herokuapp.com/)
+
+## A) Create an admin (site owner) account
+
+**Local (your laptop)**
+```bash
+# from the repo root with your venv active
+python manage.py createsuperuser
+# follow the prompts for email/username/password
+```
+
+**Heroku (production)**
+```bash
+# replace <your-app-name> with your Heroku app
+heroku run python manage.py createsuperuser --app trackher
+```
+
+> If `heroku` isn’t installed: https://devcenter.heroku.com/articles/heroku-cli
+
+## B) Sign in to Django Admin
+
+- **Local:** open http://127.0.0.1:8000/admin/  
+- **Heroku:** open `https://trackher-c1d90b82fba4.herokuapp.com/admin/`  
+- Log in with the superuser credentials you created above.
+
+> Tip: If `/admin/` 404s, confirm `django.contrib.admin` is in `INSTALLED_APPS` and that  **root urls.py** includes:
+> ```python
+> from django.contrib import admin
+> from django.urls import path, include
+> urlpatterns = [
+>     path("admin/", admin.site.urls),
+>     # path("", include("..."))  
+> ]
+> ```
+
+## C) Edit / publish a blog post (via Django Admin)
+
+1. In the left sidebar, click **Blog** → **Posts** (the model name may be `Post`).
+2. To create: click **Add Post**. To edit: click an existing post’s title.
+3. Fill out the fields (typical):
+   - **Title** – the post title
+   - **Slug** – URL slug (often auto-filled from title)
+   - **Content/Body** – main text (Markdown/HTML depending on your model)
+   - **Status** – choose **Published** to make it live (or **Draft** to hide)
+   - **Published/Created/Updated** – dates (if present)
+4. Click **Save** (or **Save and continue editing**).
+
+> Don’t see “Posts”? Register your model in `blog/admin.py`:
+> ```python
+> from django.contrib import admin
+> from .models import Post
+> 
+> @admin.register(Post)
+> class PostAdmin(admin.ModelAdmin):
+>     list_display = ("title", "status", "created", "updated")
+>     list_filter = ("status", "created")
+>     search_fields = ("title", "content")
+>     prepopulated_fields = {"slug": ("title",)}
+> ```
+
 
 ### Run-Locally
 
@@ -387,4 +480,5 @@ Most commonly, forks are used to either propose changes to someone else’s proj
 >
 > * If using a service account for Sheets, remember to share the target sheet with the service account email and verify the worksheet name expected by your export function.
 > * Review privacy language if distributing publicly (GDPR/UK GDPR considerations).
+
 
