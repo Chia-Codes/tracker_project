@@ -359,7 +359,7 @@ Manual testing covered:
 
  - Workaround: Ensure the page loads the correct file name (trackher.js) via {% load static %} and <script src="{% static 'js/trackher.js' %}"></script> after the calendar HTML.
 
- -  ## Fix planned: Keep the production file name in sync with tests, and re-run collectstatic after every JS change.
+ -  #### Fix planned: Keep the production file name in sync with tests, and re-run collectstatic after every JS change.
 
 ### Issue #3: Multiple-date logging only partially saved
 
@@ -369,7 +369,7 @@ Manual testing covered:
 
  - Workaround: In the calendar checkbox value, use value="{{ day|date:'Y-m-d' }}". In the view, call request.POST.getlist('log_days') and parse with datetime.strptime(ds, '%Y-%m-%d').
 
- - ## Fix planned: Keep the ISO value in the template and centralize parsing in the submit view.
+ - #### Fix planned: Keep the ISO value in the template and centralize parsing in the submit view.
 
 ### Issue #4: Flow selection UX inconsistent
 
@@ -379,7 +379,7 @@ Manual testing covered:
 
  - Workaround: None (feature change).
 
- - ## Fix planned: Attach click handlers to the flow buttons that (1) read selected dates, (2) post { dates: [...], flow: 'LIGHT|MEDIUM|HEAVY' } to submit_log, and (3) toast success. Hide Submit Log when ≥2 dates are selected.
+ - #### Fix planned: Attach click handlers to the flow buttons that (1) read selected dates, (2) post { dates: [...], flow: 'LIGHT|MEDIUM|HEAVY' } to submit_log, and (3) toast success. Hide Submit Log when ≥2 dates are selected.
 
 ### Issue #5: Journey page notice missing
 
@@ -389,7 +389,7 @@ Manual testing covered:
 
  - Workaround: N/A.
 
- - ## Fix planned: In journey.html, conditionally render an alert if user_log_count < 30: “Journey tracking becomes available after one month of logging.”
+ - #### Fix planned: In journey.html, conditionally render an alert if user_log_count < 30: “Journey tracking becomes available after one month of logging.”
 
 ### Issue #6: Signup and Symptom pages not centered
 
@@ -399,7 +399,7 @@ Manual testing covered:
 
  - Workaround: Wrap forms with Bootstrap grid utilities, e.g. <div class="row justify-content-center"><div class="col-12 col-md-8 col-lg-6">...</div></div>.
 
- - ## Fix planned: Apply the same container layout to both templates.
+ - #### Fix planned: Apply the same container layout to both templates.
 
 ### Issue #7: Blog images not showing / placeholders
 
@@ -409,7 +409,7 @@ Manual testing covered:
 
  - Workaround: Keep image placeholders in /static/img/blog/ and reference via {% static %}; ensure images are committed (not generated).
 
- - ## Fix planned: Add a “featured_image” field and default fallback image at render time.
+ - #### Fix planned: Add a “featured_image” field and default fallback image at render time.
 
 ### Issue #8: Google Sheets: sorting/reading cycle logs not reliable
 
@@ -419,7 +419,7 @@ Manual testing covered:
 
  - Workaround (current): Use the Resources page inside the app to present reference sources and summaries instead of live-sorted Sheets.
 
- - ## Fix planned: Migrate to database-first logging (PostgreSQL) and use Sheets only for exports; if keeping Sheets, ensure the service account email has Editor access and the correct Sheet ID/tab name are set via env vars.
+ - #### Fix planned: Migrate to database-first logging (PostgreSQL) and use Sheets only for exports; if keeping Sheets, ensure the service account email has Editor access and the correct Sheet ID/tab name are set via env vars.
 
 ### Issue #9: Error pages loading static files (recursive 500)
 
@@ -429,7 +429,7 @@ Manual testing covered:
 
  - Workaround: Keep error templates minimal (inline critical styles, avoid {% static %} where possible).
 
- - ## Fix planned: Ship a tiny inline CSS block for 403/404/500 pages and remove external asset references there.
+ - #### Fix planned: Ship a tiny inline CSS block for 403/404/500 pages and remove external asset references there.
 
  ### Issue #10: CSV export edge cases
 
@@ -439,7 +439,7 @@ Manual testing covered:
 
  - Workaround: Order queryset by -date in the export view; ensure timezone-aware formatting.
 
- - ## Fix planned: Add server-side ordering and column headers consistent with on-screen labels.
+ - #### Fix planned: Add server-side ordering and column headers consistent with on-screen labels.
 
 # Recently Fixed (but worth watching)
 
@@ -670,6 +670,7 @@ Most commonly, forks are used to either propose changes to someone else’s proj
 >
 > * If using a service account for Sheets, remember to share the target sheet with the service account email and verify the worksheet name expected by your export function.
 > * Review privacy language if distributing publicly (GDPR/UK GDPR considerations).
+
 
 
 
