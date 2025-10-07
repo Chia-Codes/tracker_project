@@ -8,7 +8,7 @@ The live link can be found here: [View the live project here](https://trackher-c
 
 ---
 
-![Mock Up](docs/readme_images/mockup.PNG) 
+![Mock Up](docs/readme_images/mockup.png) 
 
 ## Table of Contents
 
@@ -76,7 +76,7 @@ All user stories were grouped into epics and prioritized using MoSCoW (Must/Shou
 
 A Kanban board was created using GitHub Projects and can be located here: [Kanban Board Link](https://github.com/users/Chia-Codes/projects/9).
 
-![Kanban image](docs/readme_images/kanban.PNG) 
+![Kanban image](docs/readme_images/kanban.png) 
 
 #### Epics
 
@@ -164,7 +164,7 @@ Write README, testing notes, and usage docs; document environment setup and depl
 
 Users can view the current month’s calendar with indicators for days that have been logged. Clicking a day opens the log form.
 
-![Calendar View](docs/readme_images/calendar-view.PNG)
+![Calendar View](docs/readme_images/calendar-view.png)
 `USER STORY – As a user, I want to add symptoms and notes for a day`
 
 **Daily Log Form**
@@ -176,14 +176,14 @@ A simple form captures:
 * Symptoms (multi-select)
 * Optional notes (short text)
 
-![Daily Log Form](docs/readme_images/daily-log-form.PNG)
+![Daily Log Form](docs/readme_images/daily-log-form.png)
 `USER STORY – As a user, I want to edit or delete a day’s log`
 
 **Manage Day Logs**
 
 From the calendar or a list view, users can open a day’s entry to edit fields or delete the log with confirmation.
 
-![Manage Logs](docs/readme_images/manage-logs.PNG)-----------------------------------------------------------------------------------------------------------------------------------------
+![Manage Logs](docs/readme_images/manage-logs.png)-----------------------------------------------------------------------------------------------------------------------------------------
 
 `USER STORY – As a user, I want visual feedback after actions`
 
@@ -191,7 +191,7 @@ From the calendar or a list view, users can open a day’s entry to edit fields 
 
 Success and error toasts are displayed after create/update/delete so users get immediate feedback.
 
-![Toasts](docs/readme_images/toasts.PNG) 
+![Toasts](docs/readme_images/toasts.png) 
 
 `USER STORY – As a user, I want to export my logs to Google Sheets`
 
@@ -209,35 +209,35 @@ Success and error toasts are displayed after create/update/delete so users get i
 
 * Login View
 
-![Calendar Wireframe](docs/wireframes/01_login.PNG)
+![Calendar Wireframe](docs/wireframes/01_login.png)
 
 * Register View
 
-![Calendar Wireframe](docs/wireframes/02_register.PNG)
+![Calendar Wireframe](docs/wireframes/02_register.png)
 
 * Dashboard View
 
-![Calendar Wireframe](docs/wireframes/03_dashboard.PNG)
+![Calendar Wireframe](docs/wireframes/03_dashboard.png)
 
 * Calendar View
 
-![Calendar Wireframe](docs/wireframes/04_calendar.PNG)
+![Calendar Wireframe](docs/wireframes/04_calendar.png)
 
 * Daily Log
 
-![Daily Log Wireframe](docs/wireframes/05_cycle_log_form.PNG)
+![Daily Log Wireframe](docs/wireframes/05_cycle_log_form.png)
 
 * History / Insights
 
-![Analytics Wireframe](docs/wireframes/06_insights.PNG)
+![Analytics Wireframe](docs/wireframes/06_insights.png)
 
 * Settings 
 
-![Export Wireframe](docs/wireframes/07_profile_settings.PNG)
+![Export Wireframe](docs/wireframes/07_profile_settings.png)
 
 * Log form
 
-![Export Wireframe](docs/wireframes/08_quick_log_form.PNG)
+![Export Wireframe](docs/wireframes/08_quick_log_form.png)
 
 ### Database-Design
 
@@ -260,7 +260,7 @@ TrackHer uses Django’s auth `User` and three core models:
 
 **Example ERD**
 
-![Entity Relationship Diagram](docs/readme_images/erd.PNG)
+![Entity Relationship Diagram](docs/readme_images/erd.png)
 
 ### Security
 
@@ -296,7 +296,7 @@ Clean, friendly UI emphasizing readability and quick daily input. Calendar highl
 * `messages` framework for toasts
 * `timezone`, `date` utilities for calendar logic
 
-**External Python Modules** ![Requirements](docs/readme_images/requirements.txt.PNG) 
+**External Python Modules** ![Requirements](docs/readme_images/requirements.txt.png) 
 
 * `Django` (4.x)
 * `gspread` – Google Sheets API client
@@ -309,7 +309,7 @@ Clean, friendly UI emphasizing readability and quick daily input. Calendar highl
 
 ## Testing
 
-Test cases and results can be found in the [TESTING.md](TESTING.PNG) file.
+Test cases and results can be found in the [TESTING.md](TESTING.png) file.
 
 # Pytest
 
@@ -670,6 +670,7 @@ Most commonly, forks are used to either propose changes to someone else’s proj
 >
 > * If using a service account for Sheets, remember to share the target sheet with the service account email and verify the worksheet name expected by your export function.
 > * Review privacy language if distributing publicly (GDPR/UK GDPR considerations).
+
 
 
 
