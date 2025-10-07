@@ -1,8 +1,5 @@
-{% load static %} 
-{% url 'home' as home_url %} 
-{% url 'tracker' as tracker_url%} 
-{% url 'account_login' as login_url %} 
-{% url 'account_signup' as signup_url%} 
+{% load static %} {% url 'home' as home_url %} {% url 'tracker' as tracker_url%}
+{% url 'account_login' as login_url %} {% url 'account_signup' as signup_url%}
 {% url 'account_logout' as logout_url %}
 
 <!DOCTYPE html>
@@ -21,6 +18,24 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'favicon/favicon.ico' %}" sizes="any" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{% static 'favicon/favicon-32x32.png' %}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{% static 'favicon/favicon-16x16.png' %}"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="{% static 'favicon/apple-touch-icon.png' %}"
     />
 
     <!-- Bootstrap CSS -->
