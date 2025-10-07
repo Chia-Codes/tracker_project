@@ -349,7 +349,7 @@ Manual testing covered:
 
  - Workaround: Run python manage.py collectstatic --noinput locally and redeploy; on Heroku ensure DISABLE_COLLECTSTATIC is not set and STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage".
 
- - ## Fix planned: Add a CI step to fail the build if collectstatic errors; keep all asset paths in templates in sync with /static/....
+ - #### Fix planned: Add a CI step to fail the build if collectstatic errors; keep all asset paths in templates in sync with /static/....
 
 ### Issue #2: Calendar “Submit Log” vs “Log Flow” toggle not applying on the site
 
@@ -574,94 +574,68 @@ Most commonly, forks are used to either propose changes to someone else’s proj
 
 ## Credits
 
-- Django
+- [Django](https://www.djangoproject.com/) – Web framework for models, views, templates, auth, admin.  
+  Live link: https://www.djangoproject.com/
 
-    Web framework used for models, views, templates, auth, and admin.
+- [django-allauth](https://django-allauth.readthedocs.io/) – Registration, login, account management.  
+  Live link: https://django-allauth.readthedocs.io/
 
-    django-allauth
+- [Bootstrap 5](https://getbootstrap.com/) – Layout, grid, components, responsive utilities.  
+  Live link: https://getbootstrap.com/
 
-    Registration, login, and account management.
+- [Font Awesome](https://fontawesome.com/) – Iconography across navigation and UI.  
+  Live link: https://fontawesome.com/
 
-- Bootstrap 5
+- [Google Fonts](https://fonts.google.com/) – Site typography.  
+  Live link: https://fonts.google.com/
 
-    Layout, grid, components (navbar, buttons, tables) and responsive utilities.
+- [WhiteNoise](https://whitenoise.evans.io/en/stable/) – Serve static files in production (hashed manifests).  
+  Live link: https://whitenoise.evans.io/en/stable/
 
-- Font Awesome
+- [Gunicorn](https://gunicorn.org/) – WSGI server for production.  
+  Live link: https://gunicorn.org/
 
-    Iconography used across navigation and UI elements.
+- [Heroku](https://www.heroku.com/) – App hosting and deployment.  
+  Live link: https://www.heroku.com/
 
-- Google Fonts
+- [PostgreSQL](https://www.postgresql.org/) & [psycopg2](https://www.psycopg.org/) – Production DB and Python driver.  
+  Live links: https://www.postgresql.org/ | https://www.psycopg.org/
 
-    Site typography.
+- [Google Sheets API](https://developers.google.com/sheets/api) & [gspread](https://docs.gspread.org/) – Read/write Sheets for resources/logs.  
+  Live links: https://developers.google.com/sheets/api | https://docs.gspread.org/
 
-- Whitenoise
+- [Jest](https://jestjs.io/) & [jsdom](https://github.com/jsdom/jsdom) – Front-end unit tests for calendar interactions.  
+  Live links: https://jestjs.io/ | https://github.com/jsdom/jsdom
 
-    Serving static files in production with hashed manifests.
+- [GitHub Actions](https://github.com/features/actions) – CI for tests and static analysis.  
+  Live link: https://github.com/features/actions
 
-- Gunicorn
+- [TinyPNG](https://tinypng.com/) – Image compression to improve load performance.  
+  Live link: https://tinypng.com/
 
-    WSGI server used in production.
+- [Pexels](https://www.pexels.com/) – Royalty-free images (credited in captions).  
+  Live link: https://www.pexels.com/
 
-- Heroku
+- [Canva](https://www.canva.com/) – Logo and simple graphics.  
+  Live link: https://www.canva.com/
 
-    App hosting and deployment pipeline.
+- [Favicon.io](https://favicon.io/) – Favicon generation.  
+  Live link: https://favicon.io/
 
-- PostgreSQL & psycopg2
+- [MDN Web Docs](https://developer.mozilla.org/) – HTML/CSS/JS and browser API references.  
+  Live link: https://developer.mozilla.org/
 
-    Production database and Python driver.
+- [Stack Overflow](https://stackoverflow.com/) – Debugging references (linked in code comments).  
+  Live link: https://stackoverflow.com/
 
-- gspread & Google Sheets API
+- [Chrome DevTools](https://developer.chrome.com/docs/devtools/) & [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/) – Performance/accessibility audits; JS/network debugging.  
+  Live links: https://developer.chrome.com/docs/devtools/ | https://developer.chrome.com/docs/lighthouse/overview/
 
-    Reading/writing Google Sheets for resources and logs.
+- [W3Schools](https://www.w3schools.com/) – Quick HTML/CSS/JS lookups during prototyping.  
+  Live link: https://www.w3schools.com/
 
-- Jest & jsdom
-
-    Unit tests for front-end interactions (calendar selection logic).
-
-- GitHub Actions
-
-    CI workflows for tests and static analysis.
-
-- TinyPNG
-
-    Image compression to improve load performance.
-
-- Pexels
-
-    Royalty-free images used for mockups/hero sections (attributed in captions).
-
-- Canva
-
-    Logo and simple graphics creation.
-
-- Favicon.io
-
-    Favicon generation.
-
-- MDN Web Docs
-
-     Reference for HTML/CSS/JS behavior and browser APIs.
-
-- Stack Overflow
-
-    Solutions and patterns referenced during debugging (linked in code comments where applicable).
-
-- Chrome DevTools & Lighthouse
-
-    Performance and accessibility audits; debugging network/JS issues.
-
-- W3Schools
-     (light reference)
-
-      Quick lookups for HTML/CSS/JS syntax during UI prototyping.
-
-- Slack
-
-     Functionality and app communication and feedback during development.
-
-- Code Institute
-
-    Learning resources and mentor guidance used to inform patterns and setup.
+- [Code Institute](https://codeinstitute.net/) – Learning resources and mentor guidance.  
+  Live link: https://codeinstitute.net/
 
 
 ---
@@ -670,6 +644,7 @@ Most commonly, forks are used to either propose changes to someone else’s proj
 >
 > * If using a service account for Sheets, remember to share the target sheet with the service account email and verify the worksheet name expected by your export function.
 > * Review privacy language if distributing publicly (GDPR/UK GDPR considerations).
+
 
 
 
