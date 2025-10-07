@@ -1,5 +1,7 @@
 from django.test import TestCase
 from tracker.forms import CycleLogForm
+import pytest
+pytestmark = pytest.mark.django_db
 
 
 class CycleLogFormTests(TestCase):

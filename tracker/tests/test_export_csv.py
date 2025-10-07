@@ -3,7 +3,10 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from tracker.models import CycleLog
 from datetime import date
-import csv, io
+import csv
+import io
+import pytest
+pytestmark = pytest.mark.django_db
 
 
 class ExportCsvTests(TestCase):

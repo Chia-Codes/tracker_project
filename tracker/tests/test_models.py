@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from datetime import date
 from tracker.models import CycleLog
+import pytest
+pytestmark = pytest.mark.django_db
 
 
 class CycleLogModelTests(TestCase):
