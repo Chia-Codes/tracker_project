@@ -309,7 +309,7 @@ Clean, friendly UI emphasizing readability and quick daily input. Calendar highl
 
 ## Testing
 
-Test cases and results can be found in the [TESTING.md](TESTING.png) file.
+Test cases and results can be found in the [TESTING](testing.png) file.
 
 # Pytest
 
@@ -644,6 +644,7 @@ Most commonly, forks are used to either propose changes to someone else’s proj
 >
 > * If using a service account for Sheets, remember to share the target sheet with the service account email and verify the worksheet name expected by your export function.
 > * Review privacy language if distributing publicly (GDPR/UK GDPR considerations).
+
 
 
 
