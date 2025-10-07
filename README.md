@@ -207,21 +207,37 @@ Success and error toasts are displayed after create/update/delete so users get i
 
 ### Wireframes
 
+* Login View
+
+![Calendar Wireframe](docs/wireframes/01_login.PNG)
+
+* Register View
+
+![Calendar Wireframe](docs/wireframes/02_register.PNG)
+
+* Dashboard View
+
+![Calendar Wireframe](docs/wireframes/03_dashboard.PNG)
+
 * Calendar View
 
-![Calendar Wireframe](docs/wireframes/calendar.JPG)----------------------------------------------------------------------------------------------------------------
+![Calendar Wireframe](docs/wireframes/04_calendar.PNG)
 
 * Daily Log
 
-![Daily Log Wireframe](docs/wireframes/daily_log.JPG)----------------------------------------------------------------------------------------------------------------
+![Daily Log Wireframe](docs/wireframes/05_cycle_log_form.PNG)
 
-* History / Analytics
+* History / Insights
 
-![Analytics Wireframe](docs/wireframes/analytics.JPG)----------------------------------------------------------------------------------------------------------------
+![Analytics Wireframe](docs/wireframes/06_insights.PNG)
 
-* Settings / Export
+* Settings 
 
-![Export Wireframe](docs/wireframes/export.JPG)----------------------------------------------------------------------------------------------------------------
+![Export Wireframe](docs/wireframes/07_profile_settings.PNG)
+
+* Log form
+
+![Export Wireframe](docs/wireframes/08_quick_log_form.PNG)
 
 ### Database-Design
 
@@ -260,17 +276,6 @@ TrackHer uses Django’s auth `User` and three core models:
 
 Clean, friendly UI emphasizing readability and quick daily input. Calendar highlights logged days; forms are compact with touch-friendly controls.
 
-### Colour-Scheme
-
---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-### Typography
-
---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-### Imagery
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 ## Technolgies
 
 * **HTML** – Structure and templates
@@ -304,7 +309,25 @@ Clean, friendly UI emphasizing readability and quick daily input. Calendar highl
 
 ## Testing
 
-Test cases and results can be found in the [TESTING.md](TESTING.md) file.-----------------------------------------------------------------------------------------------------------
+Test cases and results can be found in the [TESTING.md](TESTING.PNG) file.
+
+# Pytest
+
+**File:** `tests/test_smoke.py`
+```python
+def test_smoke():
+    assert True
+```
+
+Run locally:
+```bash
+pytest -q
+```
+
+If you see “no tests ran”, ensure the file path is `tests/test_smoke.py` and `pytest` is installed.
+
+---
+
 
 Manual testing covered:
 
@@ -313,6 +336,119 @@ Manual testing covered:
 * Create/edit/delete of `DayLog`
 * Validation preventing duplicate day entries
 * (If configured) Sheets export appends to the expected worksheet
+
+---
+
+### Unfixed Bugs
+
+#### Issue #1: Static files occasionally 500 (manifest entry missing)
+
+ - Symptoms: ValueError: Missing staticfiles manifest entry for 'js/trackher.js' (or other assets) and 500s on error pages/favicons.
+
+ - Status: Intermittent in production when a file is renamed or added without re-collecting.
+
+ - Workaround: Run python manage.py collectstatic --noinput locally and redeploy; on Heroku ensure DISABLE_COLLECTSTATIC is not set and STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage".
+
+ - ## Fix planned: Add a CI step to fail the build if collectstatic errors; keep all asset paths in templates in sync with /static/....
+
+### Issue #2: Calendar “Submit Log” vs “Log Flow” toggle not applying on the site
+
+ - Symptoms: The Submit Log button never hides and Log Flow never shows even when multiple days are selected.
+
+ - Status: JS unit tests pass, but the behavior isn’t wired in the live template.
+
+ - Workaround: Ensure the page loads the correct file name (trackher.js) via {% load static %} and <script src="{% static 'js/trackher.js' %}"></script> after the calendar HTML.
+
+ -  ## Fix planned: Keep the production file name in sync with tests, and re-run collectstatic after every JS change.
+
+### Issue #3: Multiple-date logging only partially saved
+
+ - Symptoms: Selecting multiple days then logging saves only one (or none) of the selected dates.
+
+ - Status: Backend expects ISO dates but template posted human-readable values.
+
+ - Workaround: In the calendar checkbox value, use value="{{ day|date:'Y-m-d' }}". In the view, call request.POST.getlist('log_days') and parse with datetime.strptime(ds, '%Y-%m-%d').
+
+ - ## Fix planned: Keep the ISO value in the template and centralize parsing in the submit view.
+
+### Issue #4: Flow selection UX inconsistent
+
+ - Symptoms: Previous “Log Flow” button behavior changed; user wants to pick Light/Medium/Heavy under the calendar and auto-save for the selected day(s).
+
+ - Status: In progress (JS/UI refactor).
+
+ - Workaround: None (feature change).
+
+ - ## Fix planned: Attach click handlers to the flow buttons that (1) read selected dates, (2) post { dates: [...], flow: 'LIGHT|MEDIUM|HEAVY' } to submit_log, and (3) toast success. Hide Submit Log when ≥2 dates are selected.
+
+### Issue #5: Journey page notice missing
+
+ - Symptoms: No message informing users that journey tracking unlocks after ~30 days of logs.
+
+ - Status: Not yet implemented.
+
+ - Workaround: N/A.
+
+ - ## Fix planned: In journey.html, conditionally render an alert if user_log_count < 30: “Journey tracking becomes available after one month of logging.”
+
+### Issue #6: Signup and Symptom pages not centered
+
+ - Symptoms: Forms are left-aligned on wide screens.
+
+ - Status: UI polish needed.
+
+ - Workaround: Wrap forms with Bootstrap grid utilities, e.g. <div class="row justify-content-center"><div class="col-12 col-md-8 col-lg-6">...</div></div>.
+
+ - ## Fix planned: Apply the same container layout to both templates.
+
+### Issue #7: Blog images not showing / placeholders
+
+ - Symptoms: Blog posts render without images or with broken links.
+
+ - Status: Paths/placeholders need updating.
+
+ - Workaround: Keep image placeholders in /static/img/blog/ and reference via {% static %}; ensure images are committed (not generated).
+
+ - ## Fix planned: Add a “featured_image” field and default fallback image at render time.
+
+### Issue #8: Google Sheets: sorting/reading cycle logs not reliable
+
+ - Symptoms: Service account can’t list/sort logs; 404/permission errors; ordering inconsistent.
+
+ - Status: External dependency friction (sheet ID/permissions/rate limits).
+
+ - Workaround (current): Use the Resources page inside the app to present reference sources and summaries instead of live-sorted Sheets.
+
+ - ## Fix planned: Migrate to database-first logging (PostgreSQL) and use Sheets only for exports; if keeping Sheets, ensure the service account email has Editor access and the correct Sheet ID/tab name are set via env vars.
+
+### Issue #9: Error pages loading static files (recursive 500)
+
+ - Symptoms: Visiting /boom-500/ or hitting a 404 causes the error template to try to load missing CSS/JS, which itself errors.
+
+ - Status: Known pitfall with ManifestStaticFilesStorage.
+
+ - Workaround: Keep error templates minimal (inline critical styles, avoid {% static %} where possible).
+
+ - ## Fix planned: Ship a tiny inline CSS block for 403/404/500 pages and remove external asset references there.
+
+ ### Issue #10: CSV export edge cases
+
+ - Symptoms: Export includes stale or unsorted entries.
+
+ - Status: Minor.
+
+ - Workaround: Order queryset by -date in the export view; ensure timezone-aware formatting.
+
+ - ## Fix planned: Add server-side ordering and column headers consistent with on-screen labels.
+
+# Recently Fixed (but worth watching)
+
+ - Static path mismatch (trackher.js vs tracker.js): Verified the template points to js/trackher.js.
+
+ - Collectstatic not run after asset rename: Added steps to deployment docs; keep an eye out for regressions.
+
+ - Duplicate calendar HTML IDs/classes: Consolidated selectors used by Jest and the live page.
+---
 
 ## Deployment
 
@@ -343,6 +479,65 @@ git push
 5. Connect to GitHub and deploy the `main` branch.
 
 The live link can be found here: [Live Site](https://trackher-c1d90b82fba4.herokuapp.com/)
+
+## A) Create an admin (site owner) account
+
+**Local (your laptop)**
+```bash
+# from the repo root with your venv active
+python manage.py createsuperuser
+# follow the prompts for email/username/password
+```
+
+**Heroku (production)**
+```bash
+# replace <your-app-name> with your Heroku app
+heroku run python manage.py createsuperuser --app trackher
+```
+
+> If `heroku` isn’t installed: https://devcenter.heroku.com/articles/heroku-cli
+
+## B) Sign in to Django Admin
+
+- **Local:** open http://127.0.0.1:8000/admin/  
+- **Heroku:** open `https://trackher-c1d90b82fba4.herokuapp.com/admin/`  
+- Log in with the superuser credentials you created above.
+
+> Tip: If `/admin/` 404s, confirm `django.contrib.admin` is in `INSTALLED_APPS` and that  **root urls.py** includes:
+> ```python
+> from django.contrib import admin
+> from django.urls import path, include
+> urlpatterns = [
+>     path("admin/", admin.site.urls),
+>     # path("", include("..."))  
+> ]
+> ```
+
+## C) Edit / publish a blog post (via Django Admin)
+
+1. In the left sidebar, click **Blog** → **Posts** (the model name may be `Post`).
+2. To create: click **Add Post**. To edit: click an existing post’s title.
+3. Fill out the fields (typical):
+   - **Title** – the post title
+   - **Slug** – URL slug (often auto-filled from title)
+   - **Content/Body** – main text (Markdown/HTML depending on your model)
+   - **Status** – choose **Published** to make it live (or **Draft** to hide)
+   - **Published/Created/Updated** – dates (if present)
+4. Click **Save** (or **Save and continue editing**).
+
+> Don’t see “Posts”? Register your model in `blog/admin.py`:
+> ```python
+> from django.contrib import admin
+> from .models import Post
+> 
+> @admin.register(Post)
+> class PostAdmin(admin.ModelAdmin):
+>     list_display = ("title", "status", "created", "updated")
+>     list_filter = ("status", "created")
+>     search_fields = ("title", "content")
+>     prepopulated_fields = {"slug": ("title",)}
+> ```
+
 
 ### Run-Locally
 
@@ -377,8 +572,96 @@ Most commonly, forks are used to either propose changes to someone else’s proj
 * Click **Fork** in the top-right corner.
 * This will create a copy of the project in your GitHub account.
 
-## Credits ------------------------------------------------------------------------------------------------------------------------------------------
+## Credits
 
+- Django
+
+    Web framework used for models, views, templates, auth, and admin.
+
+    django-allauth
+
+    Registration, login, and account management.
+
+- Bootstrap 5
+
+    Layout, grid, components (navbar, buttons, tables) and responsive utilities.
+
+- Font Awesome
+
+    Iconography used across navigation and UI elements.
+
+- Google Fonts
+
+    Site typography.
+
+- Whitenoise
+
+    Serving static files in production with hashed manifests.
+
+- Gunicorn
+
+    WSGI server used in production.
+
+- Heroku
+
+    App hosting and deployment pipeline.
+
+- PostgreSQL & psycopg2
+
+    Production database and Python driver.
+
+- gspread & Google Sheets API
+
+    Reading/writing Google Sheets for resources and logs.
+
+- Jest & jsdom
+
+    Unit tests for front-end interactions (calendar selection logic).
+
+- GitHub Actions
+
+    CI workflows for tests and static analysis.
+
+- TinyPNG
+
+    Image compression to improve load performance.
+
+- Pexels
+
+    Royalty-free images used for mockups/hero sections (attributed in captions).
+
+- Canva
+
+    Logo and simple graphics creation.
+
+- Favicon.io
+
+    Favicon generation.
+
+- MDN Web Docs
+
+     Reference for HTML/CSS/JS behavior and browser APIs.
+
+- Stack Overflow
+
+    Solutions and patterns referenced during debugging (linked in code comments where applicable).
+
+- Chrome DevTools & Lighthouse
+
+    Performance and accessibility audits; debugging network/JS issues.
+
+- W3Schools
+     (light reference)
+
+      Quick lookups for HTML/CSS/JS syntax during UI prototyping.
+
+- Slack
+
+     Functionality and app communication and feedback during development.
+
+- Code Institute
+
+    Learning resources and mentor guidance used to inform patterns and setup.
 
 
 ---
@@ -387,4 +670,6 @@ Most commonly, forks are used to either propose changes to someone else’s proj
 >
 > * If using a service account for Sheets, remember to share the target sheet with the service account email and verify the worksheet name expected by your export function.
 > * Review privacy language if distributing publicly (GDPR/UK GDPR considerations).
+
+
 
