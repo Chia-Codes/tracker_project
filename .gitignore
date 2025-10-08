@@ -56,5 +56,6 @@ tracker/fixtures/
 # JSON
 credentials.json
 
-
+# Static
+staticfiles/
 

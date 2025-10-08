@@ -114,8 +114,33 @@ WSGI_APPLICATION = 'trackher.wsgi.application'
 # }
 
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    'default': {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
 }
+
+db_url = os.environ.get("DATABASE_URL")
+if db_url:  # only parse when present
+    DATABASES["default"] = dj_database_url.parse(db_url, conn_max_age=600)
+
+raw_db_url = os.environ.get("DATABASE_URL", "")  # envs are str in Py3, but be defensive
+if isinstance(raw_db_url, (bytes, bytearray)):
+    raw_db_url = raw_db_url.decode("utf-8", errors="ignore")
+
+if raw_db_url:
+    # happy path: use provided DATABASE_URL
+    DATABASES = {
+        "default": dj_database_url.parse(raw_db_url, conn_max_age=600)
+    }
+else:
+    # fallback: local/CI testing
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.codeinstitute-ide.net/",
@@ -154,34 +179,23 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-raw_db_url = os.environ.get("DATABASE_URL", "")  # envs are str in Py3, but be defensive
-if isinstance(raw_db_url, (bytes, bytearray)):
-    raw_db_url = raw_db_url.decode("utf-8", errors="ignore")
-
-if raw_db_url:
-    # happy path: use provided DATABASE_URL
-    DATABASES = {
-        "default": dj_database_url.parse(raw_db_url, conn_max_age=600)
-    }
-else:
-    # fallback: local/CI testing
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
