@@ -167,3 +167,21 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+raw_db_url = os.environ.get("DATABASE_URL", "")  # envs are str in Py3, but be defensive
+if isinstance(raw_db_url, (bytes, bytearray)):
+    raw_db_url = raw_db_url.decode("utf-8", errors="ignore")
+
+if raw_db_url:
+    # happy path: use provided DATABASE_URL
+    DATABASES = {
+        "default": dj_database_url.parse(raw_db_url, conn_max_age=600)
+    }
+else:
+    # fallback: local/CI testing
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
