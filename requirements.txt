@@ -51,3 +51,4 @@ urllib3==1.26.20
 webencodings==0.5.1
 whitenoise==5.3.0
 pytest
+pytest-django
