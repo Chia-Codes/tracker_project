@@ -441,7 +441,7 @@ Manual testing covered:
 
  - #### Fix planned: Add server-side ordering and column headers consistent with on-screen labels.
 
-# Recently Fixed (but worth watching)
+# Recently Fixed 
 
  - Static path mismatch (trackher.js vs tracker.js): Verified the template points to js/trackher.js.
 
@@ -644,6 +644,7 @@ Most commonly, forks are used to either propose changes to someone else’s proj
 >
 > * If using a service account for Sheets, remember to share the target sheet with the service account email and verify the worksheet name expected by your export function.
 > * Review privacy language if distributing publicly (GDPR/UK GDPR considerations).
+
 
 
 
