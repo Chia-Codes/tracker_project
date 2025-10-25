@@ -17,13 +17,13 @@
                   class="card-img-top"
                   src="{% static 'images/default.jpg' %}"
                   alt="placeholder image"
-                />
+                >
                 {% else %}
                 <img
                   class="card-img-top"
                   src=" {{ post.featured_image.url }}"
                   alt="{{ post.title }}"
-                />
+                >
                 {% endif %}
                 <div class="image-flash">
                   <p class="author">By {{ insight.author }}</p>
@@ -35,7 +35,7 @@
                 <p class="card-text">{{ post.excerpt }}</p>
               </a>
 
-              <hr />
+              <hr>
               <p class="card-text text-muted h6">
                 {{ insight.created_on|date:"F j, Y" }}
               </p>

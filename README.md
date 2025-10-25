@@ -309,7 +309,7 @@ Clean, friendly UI emphasizing readability and quick daily input. Calendar highl
 
 ## Testing
 
-Test cases and results can be found in the [TESTING](testing.png) file.
+Test cases and results can be found in the [TESTING](tests.md) file.
 
 # Pytest
 
