@@ -241,6 +241,14 @@ Success and error toasts are displayed after create/update/delete so users get i
 
 ### Database-Design
 
+## Database Schema
+
+![ERD](docs/readme_images/erdiagram.png)
+
+## Submission Flow (high level)
+
+![System Flow](docs/readme_images/system_flow.png)
+
 TrackHer uses Django’s auth `User` and three core models:
 
 * **Symptom** – catalog of selectable symptoms.
@@ -644,6 +652,7 @@ Most commonly, forks are used to either propose changes to someone else’s proj
 >
 > * If using a service account for Sheets, remember to share the target sheet with the service account email and verify the worksheet name expected by your export function.
 > * Review privacy language if distributing publicly (GDPR/UK GDPR considerations).
+
 
 
 
